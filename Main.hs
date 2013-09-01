@@ -22,9 +22,9 @@ instance Functor BinTree where
     h (Branch l v r) = Branch (h l) (f v) $ h r
 
 
-deriveAlg ''BinTree
-deriveAlg ''LeafTree
-deriveAlg ''RoseTree
+deriveAlgebra ''BinTree
+deriveAlgebra ''LeafTree
+deriveAlgebra ''RoseTree
 
 tree = Branch (Branch (Branch Tip 3 (Branch Tip 4 Tip)) 2 Tip) 1 (Branch Tip 2 Tip)
 rtree = RoseTree [1, 2, 3] [RoseTree [2, 3, 4] [], RoseTree [3, 4, 5] [RoseTree [5, 6, 7] []]]

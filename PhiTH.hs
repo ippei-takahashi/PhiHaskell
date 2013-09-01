@@ -5,8 +5,8 @@ import Language.Haskell.TH
 import Control.Applicative
 import Control.Monad
 
-deriveAlgWithName :: Name -> String -> Q [Dec]
-deriveAlgWithName dName newName = do
+deriveAlgebraWithName :: Name -> String -> Q [Dec]
+deriveAlgebraWithName dName newName = do
   DataD _ name vars cons _ <- normInfo <$> reify dName
   let
     arg      = appsT $ conT name : map (varT . tvName) vars
@@ -26,8 +26,8 @@ deriveAlgWithName dName newName = do
 mkInst :: Name -> TypeQ -> [DecQ] -> DecQ
 mkInst n arg = instanceD (cxt []) (appT (conT n) arg)
 
-deriveAlg :: Name -> Q [Dec]
-deriveAlg = prod deriveAlgWithName . (id /\ ("F" ++) . nameBase)
+deriveAlgebra :: Name -> Q [Dec]
+deriveAlgebra = prod deriveAlgebraWithName . (id /\ ("F" ++) . nameBase)
 
 normInfo :: Info -> Dec
 normInfo (TyConI datDec) =
